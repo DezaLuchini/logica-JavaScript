@@ -1,0 +1,72 @@
+<meta charset="utf-8">
+<h1>Mega Sena</h1>
+
+<button onclick="jogar()">Escolha 6 números da sorte</button>
+
+<script src="js/pegaNumero.js"></script>
+<script src="js/mostra.js"></script>
+
+<script>
+  var numeroJogo = 0
+  function jogar() {
+    numeroJogo++
+
+    var totalPossiveisEscolhas = 6
+    var numeroMinimoDaMegaSena = 1
+    var numeroMaximoDaMegaSena = 60
+    var qtdAcertos = 0
+    var listaNumerosSorteados = []
+    var listaNumerosEscolhidos = []
+
+    while (listaNumerosSorteados.length < totalPossiveisEscolhas) {
+      var numeroSorteado = parseInt(Math.random() * numeroMaximoDaMegaSena)+1
+      if (!listaNumerosSorteados.includes(numeroSorteado)) {
+        listaNumerosSorteados.push(numeroSorteado)
+        console.log(numeroSorteado)
+      }
+    }
+
+    for (var i = 0 ; i < totalPossiveisEscolhas ; i++) {
+      var numeroEscolhido = pegaNumero(`Escolha o ${(i+1)}º número da sorte `
+          +`(entre ${numeroMinimoDaMegaSena} e ${numeroMaximoDaMegaSena}).`)
+      var qtChutesInvalidos = 0
+      if (usouAsTresTentativas()) {
+        mostra(`Jogo ${numeroJogo}: Jogo Anulado!!!`)
+        return
+      }
+      console.log(numeroEscolhido)
+      listaNumerosEscolhidos.push(numeroEscolhido)
+    }
+
+    for (var j = 0 ; j < listaNumerosEscolhidos.length ; j++) {
+      if (listaNumerosSorteados.includes(listaNumerosEscolhidos[j])) {
+        qtdAcertos++
+      }
+    }
+
+    if (qtdAcertos > 0) {
+      mostra(`
+        Jogo ${numeroJogo}: Acertou ${qtdAcertos} números...
+        Os números sorteados eram ${listaNumerosSorteados}
+      `)
+    } else {
+      mostra(`
+        Jogo ${numeroJogo}: Errou! Os números sorteados eram ${listaNumerosSorteados}
+      `)
+    }
+
+    function usouAsTresTentativas() {
+      while (numeroEscolhido < numeroMinimoDaMegaSena || numeroEscolhido > numeroMaximoDaMegaSena) {
+        qtChutesInvalidos++
+        if (qtChutesInvalidos == 3) {
+          alert("Comece o jogo novamente!")
+          return true
+        }
+        numeroEscolhido = pegaNumero(`Número inválido. `
+          +`Os números da Mega Sena são entre ${numeroMinimoDaMegaSena} e ${numeroMaximoDaMegaSena}. `
+          +`Tente de novo aí!`)
+      }
+      return false
+    }
+  }
+</script>

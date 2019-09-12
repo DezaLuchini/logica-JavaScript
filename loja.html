@@ -1,0 +1,43 @@
+<meta charset="utf-8">
+<h1>Informações do Produto</h1>
+
+<p>Nome</p>
+<input id="campoNome">
+
+<p>Preço</p>
+<input id="campoPreco">
+<br><br>
+
+<button onclick="adicionaProduto()">Adicionar Produto</button>
+<button onclick="calculaTotal()">Calcular Total</button>
+
+<script src="js/libBrasil.js"></script>
+<script src="js/formataMoeda.js"></script>
+<script src="js/mostra.js"></script>
+
+<script>
+  var quantidade = 0
+  var listaPrecos = []
+
+ 	function adicionaProduto() {
+    var nome = campoNome.value
+ 		var preco = parseFloatBrasil(campoPreco.value)
+ 		if(quantidade < 10) {
+      listaPrecos.push(preco)
+ 			mostra(`${nome} - ${formataMoeda(preco)}`)
+ 			quantidade++
+ 		} else {
+ 			alert("Chegou no limite de 10 produtos")
+ 		}
+ 		campoNome.value = ""
+ 		campoPreco.value = ""
+ 	}
+
+  function calculaTotal() {
+    var total = 0
+    for (var posicao = 0 ; posicao < listaPrecos.length ; posicao++) {
+      total = total + listaPrecos[posicao]
+    }
+    mostra(`Total: ${formataMoeda(total)}`)
+  }
+</script>
