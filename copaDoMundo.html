@@ -7,12 +7,10 @@
 
 <script>
   var anoInicio = 1930
-  var anoCopa = anoInicio
   var anoAtual = pegaAnoAtual()
 
-  while (anoCopa <= anoAtual) {
+  for (var anoCopa = anoInicio ; anoCopa <= anoAtual ; anoCopa = anoCopa + 4) {
     var paisCopa = pegaPaisCopa(anoCopa)
     mostra(`${anoCopa} – ${paisCopa}`)
-    anoCopa = anoCopa + 4
   }
 </script>

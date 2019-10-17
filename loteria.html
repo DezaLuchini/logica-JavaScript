@@ -26,7 +26,8 @@ Quantos números quer sortear? <input type="text" id="campoQuantidadeNumeros">
       qtChutesInvalidos = qtChutesInvalidos + 1
       if (qtChutesInvalidos == 3) {
         alert("Game Over")
-        break
+        mostra(`Jogo ${numeroJogo}: Game Over`)
+        return
       }
       chute = pegaNumero("Número misterioso inválido. Ele está entre 0 e 100. Tente de novo aí!")
     }
